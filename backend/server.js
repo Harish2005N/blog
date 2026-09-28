@@ -13,10 +13,27 @@ connectDB();
 
 const app = express();
 
-app.use(cors({
-  origin: process.env.CLIENT_URL || "http://localhost:5173",
-  credentials: true,
-}));
+const corsOrigins = process.env.CLIENT_URL
+  ? process.env.CLIENT_URL.split(",").map((s) => s.trim())
+  : ["http://localhost:5173"];
+
+const normalizeOrigin = (origin) => origin?.replace(/\/$/, "");
+
+const allowedOrigins = new Set(corsOrigins.map(normalizeOrigin));
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      const normalized = normalizeOrigin(origin);
+      if (!origin || allowedOrigins.has(normalized)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));

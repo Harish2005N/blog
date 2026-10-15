@@ -77,10 +77,13 @@ const BlogDetails = () => {
             day: "numeric",
           })}
         </p>
-        <div
-          className="blog-details-content"
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        />
+        <div className="blog-details-content">
+          {post.content
+            .split(/\n\s*\n/)
+            .map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
+        </div>
       </article>
     </div>
   );

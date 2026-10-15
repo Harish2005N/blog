@@ -409,6 +409,8 @@ img {
   font-size: 1.1rem;
   line-height: 1.8;
   color: #333;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
 /* Auth Pages */

@@ -28,6 +28,16 @@ const Navbar = () => {
           </NavLink>
         </li>
       )}
+      {isAuthenticated && (
+        <li>
+          <NavLink
+            to="/create"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Create Post
+          </NavLink>
+        </li>
+      )}
       {!isAuthenticated && (
         <>
           <li>

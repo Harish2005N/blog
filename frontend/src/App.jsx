@@ -23,6 +23,14 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/posts/:id" element={<BlogDetails />} />
           <Route
+            path="/create"
+            element={
+              <ProtectedRoute>
+                <CreatePost />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/admin"
             element={
               <AdminRoute>

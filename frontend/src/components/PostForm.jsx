@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-const PostForm = ({ initialData, onSubmit, submitLabel = "Create Post" }) => {
+const PostForm = ({
+  initialData,
+  onSubmit,
+  submitLabel = "Create Post",
+  authorReadOnly = false,
+}) => {
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -58,6 +63,7 @@ const PostForm = ({ initialData, onSubmit, submitLabel = "Create Post" }) => {
             value={formData.author}
             onChange={handleChange}
             required
+            readOnly={authorReadOnly}
             placeholder="Enter author name"
           />
         </div>

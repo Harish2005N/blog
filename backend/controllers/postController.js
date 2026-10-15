@@ -3,7 +3,13 @@ import { AppError } from "../utils/errorHandler.js";
 
 const createPost = async (req, res, next) => {
   try {
-    const post = await Post.create(req.body);
+    const postData = { ...req.body, user: req.user._id };
+
+    if (req.user.role !== "admin" || !postData.author) {
+      postData.author = req.user.name;
+    }
+
+    const post = await Post.create(postData);
     res.status(201).json({ message: "Post created", post });
   } catch (error) {
     next(error);
